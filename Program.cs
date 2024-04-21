@@ -1,3 +1,5 @@
+using System.Xml;
+
 namespace DependencyInjectionAPI
 {
     public class Program
@@ -10,7 +12,9 @@ namespace DependencyInjectionAPI
 
             builder.Services.AddControllers();
 
-            builder.Services.AddTransient<IGreetingService, GreetingService>();
+            builder.Services.AddTransient<IGreetingTransient, GreetingServiceTransient>();
+            builder.Services.AddTransient<IGreetingScoped, GreetingServiceScoped>();
+            builder.Services.AddSingleton<IGreetingSingleton, GreetingServiceSingleton>();
 
             var app = builder.Build();
 
@@ -26,16 +30,87 @@ namespace DependencyInjectionAPI
             app.Run();
         }
 
-        public interface IGreetingService
+        public interface IGreetingTransient
         {
-            string Greet(string name);
+            public string Greeting(string name);
+            public int GetCount();
         }
 
-        public class GreetingService : IGreetingService
+        public interface IGreetingScoped
         {
-            public string Greet(string name)
+            public string Greeting(string name);
+            public int GetCount();
+        }
+
+        public interface IGreetingSingleton
+        {
+            public string Greeting(string name);
+            public int GetCount();
+        }
+
+        public class GreetingServiceTransient : IGreetingTransient
+        {
+            private int _count = 0;
+            private string _uniqueId;
+
+            public GreetingServiceTransient()
             {
-                return $"Hello, {name}!";
+                _uniqueId = Guid.NewGuid().ToString();
+            }
+
+            public string Greeting(string name)
+            {
+                _count++;
+                return $"Hello, {name}! \n Count: {GetCount()}\nUniqueId: {_uniqueId}";
+            }
+
+            public int GetCount()
+            {
+                return _count;
+            }
+        }
+
+        public class GreetingServiceScoped : IGreetingScoped
+        {
+            private int _count = 0;
+            private string _uniqueId;
+
+            public GreetingServiceScoped()
+            {
+                _uniqueId = Guid.NewGuid().ToString();
+            }
+
+            public string Greeting(string name)
+            {
+                _count++;
+                return $"Hello, {name}! \n Count: {GetCount()}\nUniqueId: {_uniqueId}";
+            }
+
+            public int GetCount()
+            {
+                return _count;
+            }
+        }
+
+        public class GreetingServiceSingleton : IGreetingSingleton
+        {
+            private int _count = 0;
+            private string _uniqueId;
+
+            public GreetingServiceSingleton()
+            {
+                _uniqueId = Guid.NewGuid().ToString();
+            }
+
+            public string Greeting(string name)
+            {
+                _count++;
+                return $"Hello, {name}! \n Count: {GetCount()}\nUniqueId: {_uniqueId}";
+            }
+
+            public int GetCount()
+            {
+                return _count;
             }
         }
     }

@@ -7,17 +7,40 @@ namespace DependencyInjectionAPI.Controllers
     [Route("[controller]")]
     public class GreetingController : ControllerBase
     {
-        private readonly IGreetingService _greetingService;
+        private readonly IGreetingTransient _greetingServiceTransient;
+        private readonly IGreetingScoped _greetingServiceScoped;
+        private readonly IGreetingSingleton _greetingServiceSingleton;
 
-        public GreetingController(IGreetingService greetingService)
+        public GreetingController(IGreetingTransient greetingServiceTransient, IGreetingScoped greetingServiceScoped, IGreetingSingleton greetingServiceSingleton)
         {
-            _greetingService = greetingService;
+            _greetingServiceTransient = greetingServiceTransient;
+            _greetingServiceScoped = greetingServiceScoped;
+            _greetingServiceSingleton = greetingServiceSingleton;
         }
 
         [HttpGet("{name}")]
         public ActionResult<string> GetGreeting(string name)
         {
-            return _greetingService.Greet(name);
+            // write simple switch statement to handle different types of greetings
+
+            switch (name.ToLower())
+            {
+                
+                case "transient":
+                    return _greetingServiceTransient.Greeting("World from Transient");
+                 
+                case "scoped":
+                    return _greetingServiceScoped.Greeting("World from Scoped");
+
+                case "singleton":
+                    return _greetingServiceSingleton.Greeting("World from Singleton");
+
+                 default:
+                    return "Invalid Greeting Type";
+            }
+
+
+            //return _greetingServiceScoped.Greeting(name);
         }
     }
 }
