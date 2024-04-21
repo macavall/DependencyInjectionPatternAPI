@@ -27,6 +27,7 @@ namespace DependencyInjectionAPI.Controllers
             {
                 
                 case "transient":
+
                     return _greetingServiceTransient.Greeting("World from Transient");
                  
                 case "scoped":
@@ -36,11 +37,8 @@ namespace DependencyInjectionAPI.Controllers
                     return _greetingServiceSingleton.Greeting("World from Singleton");
 
                  default:
-                    return "Invalid Greeting Type";
+                    return "Invalid Greeting Type\nPlease use one of the following:\nTransient\nScoped\nSingleton";
             }
-
-
-            //return _greetingServiceScoped.Greeting(name);
         }
     }
 }
