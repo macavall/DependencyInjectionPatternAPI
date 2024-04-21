@@ -9,7 +9,6 @@ namespace DependencyInjectionAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
 
             builder.Services.AddTransient<IGreetingTransient, GreetingServiceTransient>();
@@ -23,7 +22,6 @@ namespace DependencyInjectionAPI
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
