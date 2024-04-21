@@ -10,6 +10,8 @@ namespace DependencyInjectionAPI
 
             builder.Services.AddControllers();
 
+            builder.Services.AddTransient<IGreetingService, GreetingService>();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -22,6 +24,19 @@ namespace DependencyInjectionAPI
             app.MapControllers();
 
             app.Run();
+        }
+
+        public interface IGreetingService
+        {
+            string Greet(string name);
+        }
+
+        public class GreetingService : IGreetingService
+        {
+            public string Greet(string name)
+            {
+                return $"Hello, {name}!";
+            }
         }
     }
 }
