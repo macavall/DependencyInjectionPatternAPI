@@ -6,6 +6,8 @@ namespace DependencyInjectionAPI
     {
         public static void Main(string[] args)
         {
+
+            // Startup
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
@@ -59,7 +61,7 @@ namespace DependencyInjectionAPI
             public string Greeting(string name)
             {
                 _count++;
-                return $"Hello, {name}! \n Count: {GetCount()}\nUniqueId: {_uniqueId}";
+                return $"{name}! \n Count: {GetCount()}\nUniqueId: {_uniqueId}";
             }
 
             public int GetCount()
@@ -81,7 +83,7 @@ namespace DependencyInjectionAPI
             public string Greeting(string name)
             {
                 _count++;
-                return $"Hello, {name}! \n Count: {GetCount()}\nUniqueId: {_uniqueId}";
+                return $"{name}! \n Count: {GetCount()}\nUniqueId: {_uniqueId}";
             }
 
             public int GetCount()
@@ -103,7 +105,7 @@ namespace DependencyInjectionAPI
             public string Greeting(string name)
             {
                 _count++;
-                return $"Hello, {name}! \n Count: {GetCount()}\nUniqueId: {_uniqueId}";
+                return $"{name}! \n Count: {GetCount()}\nUniqueId: {_uniqueId}";
             }
 
             public int GetCount()

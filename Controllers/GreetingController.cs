@@ -32,21 +32,21 @@ namespace DependencyInjectionAPI.Controllers
                     {
                         var result = _serviceProvider.GetRequiredService<IGreetingTransient>().Greeting("Another Call using Transient");
 
-                        return _greetingServiceTransient.Greeting($"\n\n\n{result}\n\n\n World from Transient");
+                        return _greetingServiceTransient.Greeting($"\n\n\n{result}\n\n\n Call from Transient");
                     }
 
                 case "scoped":
                     {
                         var result = _serviceProvider.GetRequiredService<IGreetingScoped>().Greeting("Another Call using Scoped");
 
-                        return _greetingServiceScoped.Greeting($"\n\n\n{result}\n\n\n World from Scoped");
+                        return _greetingServiceScoped.Greeting($"\n\n\n{result}\n\n\n Call from Scoped");
                     }
 
                 case "singleton":
                     {
                         var result = _serviceProvider.GetRequiredService<IGreetingSingleton>().Greeting("Another Call using Singleton");
 
-                        return _greetingServiceSingleton.Greeting($"\n\n\n{result}\n\n\n World from Singleton");
+                        return _greetingServiceSingleton.Greeting($"\n\n\n{result}\n\n\n Call from Singleton");
                     }
 
                 default:
