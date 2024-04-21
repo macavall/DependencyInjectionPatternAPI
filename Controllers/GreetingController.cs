@@ -50,7 +50,7 @@ namespace DependencyInjectionAPI.Controllers
                     }
 
                 default:
-                    return "Invalid Greeting Type\nPlease use one of the following:\nTransient\nScoped\nSingleton";
+                    return "Invalid Greeting Type\nPlease use one of the following:\nTransient\nScoped\nSingleton\n\nExamples:\n https://localhost:7071/greeting/transient\n https://localhost:7071/greeting/scoped\n https://localhost:7071/greeting/singleton";
             }
         }
     }
