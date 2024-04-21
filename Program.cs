@@ -70,6 +70,19 @@ namespace DependencyInjectionAPI
             }
         }
 
+        public interface IService
+        {
+            public void ServiceMethod();
+        }
+
+        public class Service : IService
+        {
+            public void ServiceMethod()
+            {
+                Console.WriteLine("Service Method Called");
+            }
+        }
+
         public class GreetingServiceScoped : IGreetingScoped
         {
             private int _count = 0;

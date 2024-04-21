@@ -12,12 +12,19 @@ namespace DependencyInjectionAPI.Controllers
         private readonly IGreetingSingleton _greetingServiceSingleton;
         private readonly IServiceProvider _serviceProvider;
 
-        public GreetingController(IGreetingTransient greetingServiceTransient, IGreetingScoped greetingServiceScoped, IGreetingSingleton greetingServiceSingleton, IServiceProvider serviceProvider)
+        //public GreetingController(IGreetingTransient greetingServiceTransient, IGreetingScoped greetingServiceScoped, IGreetingSingleton greetingServiceSingleton, IServiceProvider serviceProvider)
+        //{
+        //    _greetingServiceTransient = greetingServiceTransient;
+        //    _greetingServiceScoped = greetingServiceScoped;
+        //    _greetingServiceSingleton = greetingServiceSingleton;
+        //    _serviceProvider = serviceProvider;
+        //}
+
+        private readonly IService _service;
+
+        public GreetingController(IService service)
         {
-            _greetingServiceTransient = greetingServiceTransient;
-            _greetingServiceScoped = greetingServiceScoped;
-            _greetingServiceSingleton = greetingServiceSingleton;
-            _serviceProvider = serviceProvider;
+            _service = service;
         }
 
         [HttpGet("{name}")]
