@@ -12,7 +12,7 @@ namespace DependencyInjectionAPI
             builder.Services.AddControllers();
 
             builder.Services.AddTransient<IGreetingTransient, GreetingServiceTransient>();
-            builder.Services.AddTransient<IGreetingScoped, GreetingServiceScoped>();
+            builder.Services.AddScoped<IGreetingScoped, GreetingServiceScoped>();
             builder.Services.AddSingleton<IGreetingSingleton, GreetingServiceSingleton>();
 
             var app = builder.Build();

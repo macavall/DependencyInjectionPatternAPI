@@ -10,12 +10,14 @@ namespace DependencyInjectionAPI.Controllers
         private readonly IGreetingTransient _greetingServiceTransient;
         private readonly IGreetingScoped _greetingServiceScoped;
         private readonly IGreetingSingleton _greetingServiceSingleton;
+        private readonly IServiceProvider _serviceProvider;
 
-        public GreetingController(IGreetingTransient greetingServiceTransient, IGreetingScoped greetingServiceScoped, IGreetingSingleton greetingServiceSingleton)
+        public GreetingController(IGreetingTransient greetingServiceTransient, IGreetingScoped greetingServiceScoped, IGreetingSingleton greetingServiceSingleton, IServiceProvider serviceProvider)
         {
             _greetingServiceTransient = greetingServiceTransient;
             _greetingServiceScoped = greetingServiceScoped;
             _greetingServiceSingleton = greetingServiceSingleton;
+            _serviceProvider = serviceProvider;
         }
 
         [HttpGet("{name}")]
@@ -25,18 +27,25 @@ namespace DependencyInjectionAPI.Controllers
 
             switch (name.ToLower())
             {
-                
-                case "transient":
 
-                    return _greetingServiceTransient.Greeting("World from Transient");
-                 
+                case "transient":
+                    {
+                        var result = _serviceProvider.GetRequiredService<IGreetingTransient>().Greeting("Another Call");
+
+                        return _greetingServiceTransient.Greeting($"\n\n\n{result}\n\n\n World from Transient");
+                    }
+
                 case "scoped":
-                    return _greetingServiceScoped.Greeting("World from Scoped");
+                    {
+                        var result = _serviceProvider.GetRequiredService<IGreetingScoped>().Greeting("Another Call");
+
+                        return _greetingServiceScoped.Greeting($"\n\n\n{result}\n\n\n World from Scoped");
+                    }
 
                 case "singleton":
                     return _greetingServiceSingleton.Greeting("World from Singleton");
 
-                 default:
+                default:
                     return "Invalid Greeting Type\nPlease use one of the following:\nTransient\nScoped\nSingleton";
             }
         }
